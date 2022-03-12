@@ -7,7 +7,7 @@ import com.google.gson.Gson
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-const val USER = "user"
+const val SHARED_MEDIA = "shared_media"
 
 class SharedPreferenceUtil @Inject constructor(@ApplicationContext context: Context) {
 

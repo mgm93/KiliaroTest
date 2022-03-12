@@ -1,4 +1,4 @@
-package com.mgm.kiliaro
+package com.mgm.kiliaro.ui
 
 import android.content.Context
 import android.view.LayoutInflater

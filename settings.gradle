@@ -6,5 +6,5 @@ dependencyResolutionManagement {
         maven { url 'https://jitpack.io' }
     }
 }
-rootProject.name = "GridView"
+rootProject.name = "Kiliaro_test"
 include ':app'

@@ -1,14 +1,17 @@
-package com.mgm.kiliaro
+package com.mgm.kiliaro.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.AdapterView
 import android.widget.Toast
+import androidx.activity.viewModels
 import kiliaro.R
 import kiliaro.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private val viewModel: MainActivityViewModel by viewModels()
 
     private val itemList: Array<String>
         get() = arrayOf(
@@ -43,6 +46,13 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
         setupGridView()
+
+        viewModel.sharedMedia.observe(this) {
+            Log.i("MGM", "res")
+        }
+
+        viewModel.getSharedMedia()
+
     }
 
     private fun setupGridView() {

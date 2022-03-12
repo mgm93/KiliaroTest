@@ -2,7 +2,7 @@ package com.mgm.kiliaro.data.remote
 
 import com.mgm.kiliaro.data.remote.models.error.ErrorResponse
 import com.mgm.kiliaro.data.remote.models.response.ShareMediaResponse
-import com.mgm.kiliaro.data.remote.source.RemoteRepository
+import com.mgm.kiliaro.data.remote.sources.RemoteRepository
 import com.mgm.kiliaro.networking.NetworkResponse
 import javax.inject.Inject
 

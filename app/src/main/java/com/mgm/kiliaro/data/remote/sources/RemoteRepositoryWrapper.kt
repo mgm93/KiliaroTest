@@ -1,4 +1,4 @@
-package com.mgm.kiliaro.data.remote.source
+package com.mgm.kiliaro.data.remote.sources
 
 import com.google.gson.Gson
 import com.mgm.kiliaro.data.remote.models.error.ErrorResponse
