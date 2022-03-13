@@ -5,9 +5,9 @@ import android.util.Log
 import android.widget.AdapterView
 import android.widget.Toast
 import androidx.activity.viewModels
+import com.mgm.kiliaro.R
+import com.mgm.kiliaro.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kiliaro.R
-import kiliaro.databinding.ActivityMainBinding
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate){

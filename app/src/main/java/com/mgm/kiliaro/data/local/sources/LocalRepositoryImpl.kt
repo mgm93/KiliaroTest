@@ -10,16 +10,16 @@ import javax.inject.Inject
 
 class LocalRepositoryImpl @Inject constructor(
     private val sharedPreferenceUtil: SharedPreferenceUtil
-):LocalRepository {
+) : LocalRepository {
 
 
-    override fun saveSharedMedia(userDetail: ArrayList<ShareMediaResponse>) {
+    override suspend fun saveSharedMedia(userDetail: ArrayList<ShareMediaResponse>) {
         sharedPreferenceUtil.saveObject(SHARED_MEDIA, userDetail)
     }
 
     override fun getSharedMedia(): ArrayList<ShareMediaResponse>? {
-        val sharedMedia = sharedPreferenceUtil.getString(SHARED_MEDIA,"")
-        if (sharedMedia.isNullOrEmpty()){
+        val sharedMedia = sharedPreferenceUtil.getString(SHARED_MEDIA, "")
+        if (sharedMedia.isNullOrEmpty()) {
             return null
         }
         val type: Type = object : TypeToken<java.util.ArrayList<String?>?>() {}.type

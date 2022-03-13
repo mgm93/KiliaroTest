@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
-import kiliaro.R
-import kiliaro.databinding.ListItemBinding
+import com.mgm.kiliaro.R
+import com.mgm.kiliaro.databinding.ListItemBinding
 
 /**
  * Created by Majid-Golmoradi on 3/9/2022.

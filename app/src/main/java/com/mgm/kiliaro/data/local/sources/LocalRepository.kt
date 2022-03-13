@@ -8,6 +8,6 @@ import com.mgm.kiliaro.data.remote.models.response.ShareMediaResponse
  */
 interface LocalRepository {
 
-    fun saveSharedMedia(userDetail: ArrayList<ShareMediaResponse>)
+    suspend fun saveSharedMedia(userDetail: ArrayList<ShareMediaResponse>)
     fun getSharedMedia(): ArrayList<ShareMediaResponse>?
 }
