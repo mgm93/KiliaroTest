@@ -6,6 +6,7 @@ import android.widget.AdapterView
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.mgm.kiliaro.R
+import com.mgm.kiliaro.data.remote.models.response.ShareMediaResponse
 import com.mgm.kiliaro.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -45,19 +46,20 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         super.onCreate(savedInstanceState)
         val view = binding.root
         setContentView(view)
-        setupGridView()
+
 
         viewModel.getSharedMedia()
 
         viewModel.sharedMedia.observe(this) {
             Log.i("MGM", "res")
+            setupGridView(it)
         }
 
 
     }
 
-    private fun setupGridView() {
-        val adapter = ImageListAdapter(this, R.layout.list_item, itemList)
+    private fun setupGridView(list: ArrayList<ShareMediaResponse>) {
+        val adapter = ImageListAdapter(this, R.layout.list_item, list)
         binding.gridview.adapter = adapter
 
         binding.gridview.onItemClickListener =

@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.Glide
 import com.mgm.kiliaro.R
+import com.mgm.kiliaro.data.remote.models.response.ShareMediaResponse
 import com.mgm.kiliaro.databinding.ListItemBinding
 
 /**
@@ -17,7 +19,7 @@ import com.mgm.kiliaro.databinding.ListItemBinding
 internal class ImageListAdapter internal constructor(
     context: Context,
     private val resource: Int,
-    private val itemList: Array<String>?
+    private val itemList: ArrayList<ShareMediaResponse>?
 ) : ArrayAdapter<ImageListAdapter.ItemViewHolder>(context, resource) {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
@@ -40,8 +42,10 @@ internal class ImageListAdapter internal constructor(
         } else {
             holder = convertView.tag as ItemViewHolder
         }
-        holder.name!!.text = this.itemList!![position]
-        holder.icon!!.setImageResource(R.mipmap.ic_launcher)
+        holder.name!!.text = (this.itemList!![position]).size.toString()
+//        holder.icon!!.setImageResource(R.mipmap.ic_launcher)
+        val thumbnail = (this.itemList[position]).thumbnail_url.plus("?w=200&h=200&m=crop")
+        Glide.with(context).load(thumbnail).placeholder(R.mipmap.ic_launcher).into(holder.icon!!)
         return convertView
     }
 
