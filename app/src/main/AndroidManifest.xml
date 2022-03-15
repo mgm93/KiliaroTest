@@ -13,7 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GridView">
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.fullscreen.FullScreenActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

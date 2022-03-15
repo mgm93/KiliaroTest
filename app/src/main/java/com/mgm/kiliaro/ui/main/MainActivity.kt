@@ -1,4 +1,4 @@
-package com.mgm.kiliaro.ui
+package com.mgm.kiliaro.ui.main
 
 import android.os.Bundle
 import android.util.Log
@@ -8,6 +8,7 @@ import androidx.activity.viewModels
 import com.mgm.kiliaro.R
 import com.mgm.kiliaro.data.remote.models.response.ShareMediaResponse
 import com.mgm.kiliaro.databinding.ActivityMainBinding
+import com.mgm.kiliaro.ui.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
