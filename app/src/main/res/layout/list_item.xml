@@ -1,24 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:background="@android:color/white"
     android:orientation="vertical"
-    android:layout_margin="@dimen/margin_default"
     android:gravity="center_horizontal">
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="@dimen/img_width"
+            android:layout_height="@dimen/img_height"
+            android:layout_gravity="center_horizontal"
+            />
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:background="@color/shadow"
+            android:text="dfdfdfdfgffgfgffgfgfg"
+            android:maxLength="14"
+            android:gravity="center_horizontal"
+            style="@style/TextAppearance.AppCompat.Small"
+            android:textColor="@color/text"/>
+    </FrameLayout>
 
-    <ImageView
-        android:id="@+id/icon"
-        android:layout_width="@dimen/img_width"
-        android:layout_height="@dimen/img_height"/>
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:padding="@dimen/txv_padding"
-        android:textColor="@android:color/black"/>
-
-</LinearLayout>
+</androidx.cardview.widget.CardView>

@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide
 import com.mgm.kiliaro.R
 import com.mgm.kiliaro.data.remote.models.response.ShareMediaResponse
 import com.mgm.kiliaro.databinding.ListItemBinding
+import com.mgm.kiliaro.generals.bytesToMeg
 
 /**
  * Created by Majid-Golmoradi on 3/9/2022.
@@ -42,7 +43,8 @@ internal class ImageListAdapter internal constructor(
         } else {
             holder = convertView.tag as ItemViewHolder
         }
-        holder.name!!.text = (this.itemList!![position]).size.toString()
+
+        holder.name!!.text = bytesToMeg((this.itemList!![position]).size)
 //        holder.icon!!.setImageResource(R.mipmap.ic_launcher)
         val thumbnail = (this.itemList[position]).thumbnail_url.plus("?w=200&h=200&m=crop")
         Glide.with(context).load(thumbnail).placeholder(R.mipmap.ic_launcher).into(holder.icon!!)
