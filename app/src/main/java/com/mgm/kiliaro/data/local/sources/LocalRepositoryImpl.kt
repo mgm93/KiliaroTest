@@ -12,6 +12,9 @@ class LocalRepositoryImpl @Inject constructor(
     private val sharedPreferenceUtil: SharedPreferenceUtil
 ) : LocalRepository {
 
+    override fun clearAllSharedPrefs() {
+        sharedPreferenceUtil.clearAll()
+    }
 
     override suspend fun saveSharedMedia(userDetail: ArrayList<ShareMediaResponse>) {
         sharedPreferenceUtil.saveObject(SHARED_MEDIA, userDetail)
@@ -22,7 +25,7 @@ class LocalRepositoryImpl @Inject constructor(
         if (sharedMedia.isNullOrEmpty()) {
             return null
         }
-        val type: Type = object : TypeToken<java.util.ArrayList<String?>?>() {}.type
+        val type: Type = object : TypeToken<java.util.ArrayList<ShareMediaResponse?>?>() {}.type
         return Gson().fromJson(sharedMedia, type)
     }
 }

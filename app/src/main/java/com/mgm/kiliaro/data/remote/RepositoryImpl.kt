@@ -1,5 +1,6 @@
 package com.mgm.kiliaro.data.remote
 
+import com.mgm.kiliaro.data.local.sources.LocalRepository
 import com.mgm.kiliaro.data.remote.models.error.ErrorResponse
 import com.mgm.kiliaro.data.remote.models.response.ShareMediaResponse
 import com.mgm.kiliaro.data.remote.sources.RemoteRepository
@@ -11,6 +12,7 @@ import javax.inject.Inject
  * Email: golmoradi.majid@gmail.com
  */
 class RepositoryImpl @Inject constructor(
+    private val localRepository: LocalRepository,
     private val remoteRepository: RemoteRepository
 ): Repository {
 
@@ -31,9 +33,15 @@ class RepositoryImpl @Inject constructor(
                     return sendImportantNullResponseError()
                 }
                 //todo saveSharedMedia
-//                localRepository.saveSharedMedia(result.rawResponse)
+                localRepository.saveSharedMedia(result.rawResponse)
             }
         }
         return result
     }
+
+    override fun getSharedMediaLocal(): ArrayList<ShareMediaResponse>? {
+        return localRepository.getSharedMedia()
+    }
+
+
 }

@@ -37,7 +37,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         viewModel.getSharedMedia()
 
         viewModel.sharedMedia.observe(this) {
-            Log.i("MGM", "res")
             setupGridView(it)
         }
 

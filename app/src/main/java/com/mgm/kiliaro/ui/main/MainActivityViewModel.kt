@@ -20,17 +20,21 @@ class MainActivityViewModel @Inject constructor(
     val sharedMedia: LiveData<ArrayList<ShareMediaResponse>> = _sharedMedia
 
     fun getSharedMedia() {
-        viewModelScope.launch {
-            when (val res = repository.getSharedMedia()) {
-                is NetworkResponse.Success -> {
-                    _sharedMedia.postValue(res.rawResponse)
-                }
-                is NetworkResponse.GenericError -> {
-                }
-                is NetworkResponse.NetworkError -> {
+        if (repository.getSharedMediaLocal().isNullOrEmpty()) {
+            viewModelScope.launch {
+                when (val res = repository.getSharedMedia()) {
+                    is NetworkResponse.Success -> {
+                        _sharedMedia.postValue(res.rawResponse)
+                    }
+                    is NetworkResponse.GenericError -> {
+                    }
+                    is NetworkResponse.NetworkError -> {
 
+                    }
                 }
             }
+        }else{
+            _sharedMedia.postValue(repository.getSharedMediaLocal())
         }
     }
 }
