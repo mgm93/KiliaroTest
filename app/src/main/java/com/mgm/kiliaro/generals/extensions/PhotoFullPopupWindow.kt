@@ -92,6 +92,7 @@ class PhotoFullPopupWindow(
                 ): Boolean {
                     loading.isIndeterminate = false
                     loading.setBackgroundColor(Color.LTGRAY)
+                    loading.snackToast("Oops...Try Again")
                     return false
                 }
 

@@ -43,5 +43,9 @@ class RepositoryImpl @Inject constructor(
         return localRepository.getSharedMedia()
     }
 
+    override fun clearAllSharedPrefs() {
+        localRepository.clearAllSharedPrefs()
+    }
+
 
 }

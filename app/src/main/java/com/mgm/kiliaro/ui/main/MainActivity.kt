@@ -1,10 +1,8 @@
 package com.mgm.kiliaro.ui.main
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.AdapterView
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.activity.viewModels
 import com.mgm.kiliaro.R
 import com.mgm.kiliaro.data.remote.models.response.ShareMediaResponse
@@ -14,14 +12,8 @@ import dagger.hilt.android.AndroidEntryPoint
 
 import com.mgm.kiliaro.generals.extensions.PhotoFullPopupWindow
 import android.graphics.drawable.BitmapDrawable
-
-import android.graphics.Bitmap
-
-
-
-
-
-
+import androidx.core.content.ContentProviderCompat.requireContext
+import com.mgm.kiliaro.generals.extensions.snackToast
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate){
@@ -38,7 +30,18 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
         viewModel.sharedMedia.observe(this) {
             setupGridView(it)
+            binding.swipeRefresh.isRefreshing = false
         }
+
+        binding.swipeRefresh.setOnRefreshListener{
+            viewModel.clearAllSharedPrefs()
+            viewModel.getSharedMedia()
+        }
+
+        viewModel.genericError.observe(this, {
+            binding.swipeRefresh.isRefreshing = false
+            binding.gridview.snackToast(it)
+        })
 
 
     }

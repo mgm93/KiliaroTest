@@ -10,4 +10,5 @@ import com.mgm.kiliaro.networking.NetworkResponse
 interface Repository {
     suspend fun getSharedMedia(): NetworkResponse<ArrayList<ShareMediaResponse>>
     fun getSharedMediaLocal(): ArrayList<ShareMediaResponse>?
+    fun clearAllSharedPrefs()
 }

@@ -15,8 +15,11 @@ import javax.inject.Inject
 class MainActivityViewModel @Inject constructor(
     private val repository: Repository
 ) : ViewModel() {
-    private val _sharedMedia: MutableLiveData<ArrayList<ShareMediaResponse>> = MutableLiveData()
 
+    private val _genericError: MutableLiveData<String> = MutableLiveData()
+    val genericError: LiveData<String> = _genericError
+
+    private val _sharedMedia: MutableLiveData<ArrayList<ShareMediaResponse>> = MutableLiveData()
     val sharedMedia: LiveData<ArrayList<ShareMediaResponse>> = _sharedMedia
 
     fun getSharedMedia() {
@@ -27,14 +30,19 @@ class MainActivityViewModel @Inject constructor(
                         _sharedMedia.postValue(res.rawResponse)
                     }
                     is NetworkResponse.GenericError -> {
+                        _genericError.postValue(res.error.error)
                     }
                     is NetworkResponse.NetworkError -> {
-
+                        _genericError.postValue("please check your network and try again")
                     }
                 }
             }
         }else{
             _sharedMedia.postValue(repository.getSharedMediaLocal())
         }
+    }
+
+    fun clearAllSharedPrefs(){
+        repository.clearAllSharedPrefs()
     }
 }
