@@ -53,7 +53,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                 val imageView = v.findViewById<ImageView>(R.id.thumbnail)
                 val bm = (imageView.drawable as BitmapDrawable).bitmap
                 // Code to show image in full screen:
-                PhotoFullPopupWindow(this, R.layout.popup_photo_full, v, list[position].download_url, null, list[position].created_at)
+                PhotoFullPopupWindow(this, R.layout.popup_photo_full, v, list[position].download_url, bm, list[position].created_at)
             }
     }
 

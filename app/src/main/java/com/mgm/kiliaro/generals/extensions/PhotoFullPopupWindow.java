@@ -1,7 +1,6 @@
 package com.mgm.kiliaro.generals.extensions;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
-
 import static com.mgm.kiliaro.generals.TopLevelFunctionsKt.fastBlur;
 
 import android.content.Context;
@@ -34,18 +33,17 @@ import com.mgm.kiliaro.R;
  */
 public class PhotoFullPopupWindow extends PopupWindow {
 
+    private static PhotoFullPopupWindow instance = null;
     View view;
     Context mContext;
     PhotoView photoView;
     ProgressBar loading;
     TextView txtCreateAt;
     ViewGroup parent;
-    private static PhotoFullPopupWindow instance = null;
-
 
 
     public PhotoFullPopupWindow(Context ctx, int layout, View v, String imageUrl, Bitmap bitmap, String createAt) {
-        super(((LayoutInflater) ctx.getSystemService(LAYOUT_INFLATER_SERVICE)).inflate( R.layout.popup_photo_full, null), ViewGroup.LayoutParams.MATCH_PARENT,
+        super(((LayoutInflater) ctx.getSystemService(LAYOUT_INFLATER_SERVICE)).inflate(R.layout.popup_photo_full, null), ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT);
 
         setElevation(5.0f);
@@ -73,39 +71,37 @@ public class PhotoFullPopupWindow extends PopupWindow {
         // ImageUtils.setZoomable(imageView);
         //----------------------------
         if (bitmap != null) {
-            loading.setVisibility(View.GONE);
-
             parent.setBackground(new BitmapDrawable(mContext.getResources(), fastBlur(Bitmap.createScaledBitmap(bitmap, 50, 50, true))));// ));
             photoView.setImageBitmap(bitmap);
-        } else {
-            loading.setIndeterminate(true);
-            loading.setVisibility(View.VISIBLE);
-            Glide.with(ctx) .asBitmap()
-                    .load(imageUrl)
-                    .error(R.drawable.ic_launcher_background)
-                    .listener(new RequestListener<Bitmap>() {
-                        @Override
-                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
-                            loading.setIndeterminate(false);
-                            loading.setBackgroundColor(Color.LTGRAY);
-                            return false;
-                        }
-
-                        @Override
-                        public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
-                            parent.setBackground(new BitmapDrawable(mContext.getResources(), fastBlur(Bitmap.createScaledBitmap(resource, 50, 50, true))));// ));
-                            photoView.setImageBitmap(resource);
-
-                            loading.setVisibility(View.GONE);
-                            txtCreateAt.setText(createAt);
-                            return false;
-                        }
-                    })
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into(photoView);
-
-            showAtLocation(v, Gravity.CENTER, 0, 0);
         }
+        loading.setIndeterminate(true);
+        loading.setVisibility(View.VISIBLE);
+        Glide.with(ctx).asBitmap()
+                .load(imageUrl)
+                .error(R.drawable.ic_launcher_background)
+                .listener(new RequestListener<Bitmap>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+                        loading.setIndeterminate(false);
+                        loading.setBackgroundColor(Color.LTGRAY);
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+                        parent.setBackground(new BitmapDrawable(mContext.getResources(), fastBlur(Bitmap.createScaledBitmap(resource, 50, 50, true))));// ));
+                        photoView.setImageBitmap(resource);
+
+                        loading.setVisibility(View.GONE);
+                        txtCreateAt.setText(createAt);
+                        return false;
+                    }
+                })
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(photoView);
+
+        showAtLocation(v, Gravity.CENTER, 0, 0);
+
         //------------------------------
 
     }
