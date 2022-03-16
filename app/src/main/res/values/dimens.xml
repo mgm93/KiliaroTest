@@ -4,6 +4,6 @@
     <dimen name="img_height">100dp</dimen>
     <dimen name="txv_height">20sp</dimen>
     <dimen name="txv_padding">16dp</dimen>
-    <dimen name="padding_default">10dp</dimen>
+    <dimen name="padding_default">0dp</dimen>
     <dimen name="margin_default">8dp</dimen>
 </resources>
