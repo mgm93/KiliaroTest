@@ -10,13 +10,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <ImageView
-            android:id="@+id/icon"
+            android:id="@+id/thumbnail"
             android:layout_width="@dimen/img_width"
             android:layout_height="@dimen/img_height"
             android:layout_gravity="center_horizontal"
             />
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/size"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center_horizontal"

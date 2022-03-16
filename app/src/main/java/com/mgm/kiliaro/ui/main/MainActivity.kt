@@ -3,6 +3,7 @@ package com.mgm.kiliaro.ui.main
 import android.os.Bundle
 import android.util.Log
 import android.widget.AdapterView
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.mgm.kiliaro.R
@@ -11,37 +12,21 @@ import com.mgm.kiliaro.databinding.ActivityMainBinding
 import com.mgm.kiliaro.ui.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 
+import com.mgm.kiliaro.generals.extensions.PhotoFullPopupWindow
+import android.graphics.drawable.BitmapDrawable
+
+import android.graphics.Bitmap
+
+
+
+
+
+
+
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate){
 
     private val viewModel: MainActivityViewModel by viewModels()
-
-    private val itemList: Array<String>
-        get() = arrayOf(
-            "Item 1",
-            "Item 2",
-            "Item 3",
-            "Item 4",
-            "Item 5",
-            "Item 6",
-            "Item 7",
-            "Item 8",
-            "Item 9",
-            "Item 10",
-            "Item 11",
-            "Item 12",
-            "Item 13",
-            "Item 14",
-            "Item 15",
-            "Item 16",
-            "Item 17",
-            "Item 18",
-            "Item 19",
-            "Item 20",
-            "Item 21",
-            "Item 22"
-        )
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,10 +50,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
         binding.gridview.onItemClickListener =
             AdapterView.OnItemClickListener { parent, v, position, id ->
-                Toast.makeText(
-                    this@MainActivity, " Clicked Position: " + (position + 1),
-                    Toast.LENGTH_SHORT
-                ).show()
+                val imageView = v.findViewById<ImageView>(R.id.thumbnail)
+                val bm = (imageView.drawable as BitmapDrawable).bitmap
+                // Code to show image in full screen:
+                PhotoFullPopupWindow(this, R.layout.popup_photo_full, v, list[position].download_url, null, list[position].created_at)
             }
     }
 

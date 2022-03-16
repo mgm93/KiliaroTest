@@ -37,22 +37,22 @@ internal class ImageListAdapter internal constructor(
             itemBinding = ListItemBinding.inflate(inflater)
             convertView = itemBinding.root
             holder = ItemViewHolder()
-            holder.name = itemBinding.textView
-            holder.icon = itemBinding.icon
+            holder.size = itemBinding.size
+            holder.thumbnail = itemBinding.thumbnail
             convertView.tag = holder
         } else {
             holder = convertView.tag as ItemViewHolder
         }
 
-        holder.name!!.text = bytesToMeg((this.itemList!![position]).size)
+        holder.size!!.text = bytesToMeg((this.itemList!![position]).size)
 //        holder.icon!!.setImageResource(R.mipmap.ic_launcher)
         val thumbnail = (this.itemList[position]).thumbnail_url.plus("?w=200&h=200&m=crop")
-        Glide.with(context).load(thumbnail).placeholder(R.mipmap.ic_launcher).into(holder.icon!!)
+        Glide.with(context).load(thumbnail).placeholder(R.mipmap.ic_launcher).into(holder.thumbnail!!)
         return convertView
     }
 
     internal class ItemViewHolder {
-        var name: TextView? = null
-        var icon: ImageView? = null
+        var size: TextView? = null
+        var thumbnail: ImageView? = null
     }
 }
