@@ -25,6 +25,10 @@ class RepositoryImpl @Inject constructor(
         )
     }
 
+    override suspend fun isOnline(): Boolean {
+        return remoteRepository.isOnline()
+    }
+
     override suspend fun getSharedMedia(): NetworkResponse<ArrayList<ShareMediaResponse>> {
         val result = remoteRepository.getSharedMedia()
         when (result) {
@@ -43,8 +47,8 @@ class RepositoryImpl @Inject constructor(
         return localRepository.getSharedMedia()
     }
 
-    override fun clearAllSharedPrefs() {
-        localRepository.clearAllSharedPrefs()
+    override fun clearAllCache() {
+        localRepository.clearAllCache()
     }
 
 

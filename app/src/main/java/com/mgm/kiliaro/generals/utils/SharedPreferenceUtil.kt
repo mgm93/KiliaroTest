@@ -16,6 +16,13 @@ class SharedPreferenceUtil @Inject constructor(@ApplicationContext context: Cont
     private var globalSharedPreferences: SharedPreferences =
         context.getSharedPreferences("global", Context.MODE_PRIVATE)
 
+    private val file = context.cacheDir
+
+    fun clearAllCache(){
+        clearAll()
+        clearAllGlobal()
+        file.deleteRecursively()
+    }
     fun saveObject(tag: String?, item: Any?) {
         if (item == null) {
             return
@@ -113,5 +120,6 @@ class SharedPreferenceUtil @Inject constructor(@ApplicationContext context: Cont
 
     fun clearAllGlobal() {
         globalSharedPreferences.edit().clear().apply()
+
     }
 }

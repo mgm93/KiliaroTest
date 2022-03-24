@@ -12,8 +12,8 @@ class LocalRepositoryImpl @Inject constructor(
     private val sharedPreferenceUtil: SharedPreferenceUtil
 ) : LocalRepository {
 
-    override fun clearAllSharedPrefs() {
-        sharedPreferenceUtil.clearAll()
+    override fun clearAllCache() {
+        sharedPreferenceUtil.clearAllCache()
     }
 
     override suspend fun saveSharedMedia(userDetail: ArrayList<ShareMediaResponse>) {

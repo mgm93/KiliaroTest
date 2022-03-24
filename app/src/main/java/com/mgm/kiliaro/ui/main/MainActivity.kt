@@ -1,5 +1,6 @@
 package com.mgm.kiliaro.ui.main
 
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.widget.AdapterView
 import android.widget.ImageView
@@ -7,16 +8,13 @@ import androidx.activity.viewModels
 import com.mgm.kiliaro.R
 import com.mgm.kiliaro.data.remote.models.response.ShareMediaResponse
 import com.mgm.kiliaro.databinding.ActivityMainBinding
+import com.mgm.kiliaro.generals.extensions.PhotoFullPopupWindow
+import com.mgm.kiliaro.generals.extensions.snackToast
 import com.mgm.kiliaro.ui.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 
-import com.mgm.kiliaro.generals.extensions.PhotoFullPopupWindow
-import android.graphics.drawable.BitmapDrawable
-import androidx.core.content.ContentProviderCompat.requireContext
-import com.mgm.kiliaro.generals.extensions.snackToast
-
 @AndroidEntryPoint
-class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate){
+class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate) {
 
     private val viewModel: MainActivityViewModel by viewModels()
 
@@ -25,16 +23,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         val view = binding.root
         setContentView(view)
 
-
         viewModel.getSharedMedia()
-
         viewModel.sharedMedia.observe(this) {
             setupGridView(it)
             binding.swipeRefresh.isRefreshing = false
         }
 
-        binding.swipeRefresh.setOnRefreshListener{
+        binding.swipeRefresh.setOnRefreshListener {
             viewModel.clearAllSharedPrefs()
+            setupGridView(arrayListOf<ShareMediaResponse>())
             viewModel.getSharedMedia()
         }
 
@@ -52,10 +49,23 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
         binding.gridview.onItemClickListener =
             AdapterView.OnItemClickListener { parent, v, position, id ->
-                val imageView = v.findViewById<ImageView>(R.id.thumbnail)
-                val bm = (imageView.drawable as BitmapDrawable).bitmap
-                // Code to show image in full screen:
-                PhotoFullPopupWindow(this, R.layout.popup_photo_full, v, list[position].download_url, bm, list[position].created_at)
+                try {
+                    val imageView = v.findViewById<ImageView>(R.id.thumbnail)
+                    val bm = (imageView.drawable as BitmapDrawable).bitmap
+                    // Code to show image in full screen:
+                    runOnUiThread {
+                        PhotoFullPopupWindow(
+                            this,
+                            R.layout.popup_photo_full,
+                            v,
+                            list[position].download_url,
+                            bm,
+                            list[position].created_at
+                        )
+                    }
+                } catch (ex: ClassCastException) {
+                    binding.gridview.snackToast("Please waiting...")
+                }
             }
     }
 

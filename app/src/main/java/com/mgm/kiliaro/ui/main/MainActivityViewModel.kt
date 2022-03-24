@@ -24,25 +24,26 @@ class MainActivityViewModel @Inject constructor(
 
     fun getSharedMedia() {
         if (repository.getSharedMediaLocal().isNullOrEmpty()) {
-            viewModelScope.launch {
-                when (val res = repository.getSharedMedia()) {
-                    is NetworkResponse.Success -> {
-                        _sharedMedia.postValue(res.rawResponse)
-                    }
-                    is NetworkResponse.GenericError -> {
-                        _genericError.postValue(res.error.error)
-                    }
-                    is NetworkResponse.NetworkError -> {
-                        _genericError.postValue("please check your network and try again")
+                viewModelScope.launch {
+                    when (val res = repository.getSharedMedia()) {
+                        is NetworkResponse.Success -> {
+                            _sharedMedia.postValue(res.rawResponse)
+                        }
+                        is NetworkResponse.GenericError -> {
+                            _genericError.postValue(res.error.error)
+                        }
+                        is NetworkResponse.NetworkError -> {
+                            _genericError.postValue("please check your network and try again")
+                        }
                     }
                 }
-            }
-        }else{
+        } else {
             _sharedMedia.postValue(repository.getSharedMediaLocal())
         }
     }
 
-    fun clearAllSharedPrefs(){
-        repository.clearAllSharedPrefs()
+    fun clearAllSharedPrefs() {
+        repository.clearAllCache()
     }
+
 }

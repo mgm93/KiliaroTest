@@ -82,7 +82,7 @@ class PhotoFullPopupWindow(
         loading.visibility = View.VISIBLE
         Glide.with(ctx).asBitmap()
             .load(imageUrl)
-            .error(R.drawable.ic_launcher_background)
+//            .error(R.drawable.ic_launcher_background)
             .listener(object : RequestListener<Bitmap?> {
                 override fun onLoadFailed(
                     e: GlideException?,
@@ -116,7 +116,8 @@ class PhotoFullPopupWindow(
                     return false
                 }
             })
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+            .dontAnimate()
             .into(photoView)
         showAtLocation(v, Gravity.CENTER, 0, 0)
 

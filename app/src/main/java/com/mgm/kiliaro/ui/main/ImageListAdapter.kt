@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.mgm.kiliaro.R
 import com.mgm.kiliaro.data.remote.models.response.ShareMediaResponse
 import com.mgm.kiliaro.databinding.ListItemBinding
@@ -47,7 +48,8 @@ internal class ImageListAdapter internal constructor(
         holder.size!!.text = bytesToMeg((this.itemList!![position]).size)
 //        holder.icon!!.setImageResource(R.mipmap.ic_launcher)
         val thumbnail = (this.itemList[position]).thumbnail_url.plus("?w=200&h=200&m=crop")
-        Glide.with(context).load(thumbnail).placeholder(R.mipmap.ic_launcher).into(holder.thumbnail!!)
+        Glide.with(context).load(thumbnail).placeholder(R.drawable.progress_animation)
+            .dontAnimate().diskCacheStrategy(DiskCacheStrategy.ALL).into(holder.thumbnail!!)
         return convertView
     }
 

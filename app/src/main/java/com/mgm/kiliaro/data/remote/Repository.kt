@@ -8,7 +8,8 @@ import com.mgm.kiliaro.networking.NetworkResponse
  * Email: golmoradi.majid@gmail.com
  */
 interface Repository {
+    suspend fun isOnline(): Boolean
     suspend fun getSharedMedia(): NetworkResponse<ArrayList<ShareMediaResponse>>
     fun getSharedMediaLocal(): ArrayList<ShareMediaResponse>?
-    fun clearAllSharedPrefs()
+    fun clearAllCache()
 }
