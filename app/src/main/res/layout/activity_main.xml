@@ -14,16 +14,47 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
-        <GridView
-            android:id="@+id/gridview"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:horizontalSpacing="@dimen/padding_default"
-            android:numColumns="3"
-            android:stretchMode="columnWidth"
-            android:verticalSpacing="@dimen/padding_default" />
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            android:orientation="vertical">
+            <LinearLayout
+                android:id="@+id/emptyState"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:visibility="gone"
+                android:orientation="vertical">
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:background="@drawable/ic_baseline_image_48"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearance.AppCompat.Title"
+                    android:gravity="center"
+                    android:text="Check your connection"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:gravity="center"
+                    android:text="Pull to refresh"/>
+            </LinearLayout>
+            <GridView
+                android:id="@+id/gridview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:horizontalSpacing="@dimen/padding_default"
+                android:numColumns="3"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="@dimen/padding_default" />
+        </LinearLayout>
+
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 

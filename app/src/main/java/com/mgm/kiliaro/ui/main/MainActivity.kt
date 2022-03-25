@@ -2,6 +2,7 @@ package com.mgm.kiliaro.ui.main
 
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
+import android.view.View
 import android.widget.AdapterView
 import android.widget.ImageView
 import androidx.activity.viewModels
@@ -35,15 +36,18 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
             viewModel.getSharedMedia()
         }
 
-        viewModel.genericError.observe(this, {
+        viewModel.genericError.observe(this) {
             binding.swipeRefresh.isRefreshing = false
             binding.gridview.snackToast(it)
-        })
+            showState(true)
+        }
 
 
     }
 
     private fun setupGridView(list: ArrayList<ShareMediaResponse>) {
+        if (list.isEmpty() || list.size == 0) showState(true) else showState(false)
+
         val adapter = ImageListAdapter(this, R.layout.list_item, list)
         binding.gridview.adapter = adapter
 
@@ -67,6 +71,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                     binding.gridview.snackToast("Please waiting...")
                 }
             }
+    }
+
+    private fun showState(showEmpty:Boolean){
+        if (showEmpty){
+            binding.emptyState.visibility = View.VISIBLE
+            binding.gridview.visibility = View.GONE
+        }else{
+            binding.emptyState.visibility = View.GONE
+            binding.gridview.visibility = View.VISIBLE
+        }
     }
 
 }
